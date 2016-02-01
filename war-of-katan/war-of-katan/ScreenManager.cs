@@ -32,14 +32,34 @@ namespace Katan
             /// </summary>
             public void Update()
             {
-                screenList[currentScreen].Update();
+                if (screenList[currentScreen].IsLoaded())
+                {
+                    screenList[currentScreen].Update();
+                }
+                else
+                {
+                    throw new ScreenNotLoadedException();
+                }
             }
             /// <summary>
             /// Runs draw method for currently selected Screen object.
             /// </summary>
             public void Draw()
             {
-                screenList[currentScreen].Draw();
+                if (screenList[currentScreen].IsLoaded())
+                {
+                    // Checks to see if the screen was invalidated to avoid redrawing the same frame.
+                    if (screenList[currentScreen].IsRectangleInvalidated())
+                    {
+                        // TODO: Clear the screen
+                        screenList[currentScreen].Draw();
+                    }
+                    // Otherwise do nothing since nothing visually changed.
+                }
+                else
+                {
+                    throw new ScreenNotLoadedException();
+                }
             }
             /// <summary>
             /// Adds a Screen object to private screen collection.
