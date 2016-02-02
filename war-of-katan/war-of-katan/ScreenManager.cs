@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,7 @@ namespace Katan
 {
     namespace Graphics
     {
-        class ScreenManager
+        public class ScreenManager
         {
             private Dictionary<string, Screen> screenList;
             private string currentScreen;
@@ -30,12 +32,31 @@ namespace Katan
             /// <summary>
             /// Runs update method for currently selected Screen object.
             /// </summary>
-            public void Update()
+            public void Update(Game1 gameInstance)
             {
+                // Check to see if the previous frame requested a switch context operation.
+                if (switchOperationRequested)
+                {
+                    loadScreen(switchOperationArgument);
+                    switchOperationRequested = false;
+                    switchOperationArgument = "";
+                }
+                // Now is a good time to check if any background tasks have finished.
+                // TODO: Move to a new thread.
+                foreach (Task i in runningOperations)
+                {
+                    if(i.IsCompleted)
+                    {
+                        runningOperations.Remove(i);
+                    }
+                }
+                // Run the currently selected screen update function if
+                // it is loaded, otherwise throw an exception.
                 if (screenList[currentScreen].IsLoaded())
                 {
-                    screenList[currentScreen].Update();
+                    screenList[currentScreen].Update(ref gameInstance);
                 }
+                // Throw an exception.
                 else
                 {
                     throw new ScreenNotLoadedException();
@@ -44,15 +65,15 @@ namespace Katan
             /// <summary>
             /// Runs draw method for currently selected Screen object.
             /// </summary>
-            public void Draw()
+            public void Draw(Game1 gameInstance)
             {
                 if (screenList[currentScreen].IsLoaded())
                 {
                     // Checks to see if the screen was invalidated to avoid redrawing the same frame.
                     if (screenList[currentScreen].IsRectangleInvalidated())
                     {
-                        // TODO: Clear the screen
-                        screenList[currentScreen].Draw();
+                        gameInstance.GraphicsDevice.Clear(Color.Black);
+                        screenList[currentScreen].Draw(ref gameInstance);
                     }
                     // Otherwise do nothing since nothing visually changed.
                 }
@@ -76,7 +97,7 @@ namespace Katan
             /// screen object inherits the ISuspendable interface.
             /// </summary>
             /// <param name="_name">Name of screen to switch to.</param>
-            public void SwitchScreen(string _name)
+            public void SwitchScreen(string _name, Game1 gameInstance)
             {
                 // Check to see if screen exists
                 if (!screenList.ContainsKey(_name))
@@ -91,7 +112,7 @@ namespace Katan
                     runningOperations[runningOperations.Count - 1].Start();
                 }
                 // Load the new screen
-                loadScreen(_name);
+                loadScreen(_name, gameInstance);
                 currentScreen = _name;
             }
             public void SwitchPreloadedScreen(string _name)
@@ -139,7 +160,7 @@ namespace Katan
             /// Loads a Screen object into memory.
             /// </summary>
             /// <param name="_name">Name of Screen object to load.</param>
-            private void loadScreen(string _name)
+            private void loadScreen(string _name, Game1 gameInstance)
             {
                 if (screenList[_name] is ISuspendable)
                 {
@@ -147,7 +168,7 @@ namespace Katan
                 }
                 else
                 {
-                    screenList[_name].LoadContent();
+                    screenList[_name].LoadContent(gameInstance);
                 }
             }
         }

@@ -13,3 +13,15 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Screens/MainMenu/Fonts/MenuTitle.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Screens/MainMenu/Fonts/MenuTitle.spritefont
+
+#begin Screens/MainMenu/Fonts/MenuItem.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Screens/MainMenu/Fonts/MenuItem.spritefont
+

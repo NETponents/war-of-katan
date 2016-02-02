@@ -12,5 +12,11 @@ namespace Katan
             void Suspend();
             void Resume();
         }
+        interface IInvalidator
+        {
+            bool IsRectangleInvalidated();
+            void Invalidate();
+            void ResetInvalidation();
+        }
     }
 }

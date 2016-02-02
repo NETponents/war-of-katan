@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Katan.Graphics;
+using Katan.Screens;
 
 namespace Katan
 {
@@ -9,13 +11,15 @@ namespace Katan
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public GraphicsDeviceManager graphics;
+        public SpriteBatch spriteBatch;
+        public ScreenManager screenManager;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            screenManager = new ScreenManager();
         }
 
         /// <summary>
@@ -26,7 +30,7 @@ namespace Katan
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            screenManager.AddScreen("MainMenu", new MainMenuScreen());
 
             base.Initialize();
         }
@@ -41,6 +45,8 @@ namespace Katan
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            // TODO: Call global content initializers.
+            screenManager.SwitchScreen("MainMenu", this);
         }
 
         /// <summary>
@@ -59,10 +65,12 @@ namespace Katan
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.F4))
+            {
+               Exit();
+            }
 
-            // TODO: Add your update logic here
+            screenManager.Update(this);
 
             base.Update(gameTime);
         }
@@ -73,9 +81,7 @@ namespace Katan
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
+            screenManager.Draw(this);
 
             base.Draw(gameTime);
         }

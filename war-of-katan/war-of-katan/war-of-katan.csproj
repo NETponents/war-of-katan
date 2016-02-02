@@ -41,12 +41,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
-    <Compile Include="ISuspendable.cs" />
+    <Compile Include="GameObject.cs" />
+    <Compile Include="GameScreen.cs" />
+    <Compile Include="GraphicsInterfaces.cs" />
+    <Compile Include="Hex.cs" />
     <Compile Include="MainMenuScreen.cs" />
+    <Compile Include="MathHelpers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Screen.cs" />
     <Compile Include="ScreenManager.cs" />
+    <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
