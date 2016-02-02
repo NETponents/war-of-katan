@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace Katan
 {
@@ -10,6 +10,7 @@ namespace Katan
         public class Hex : IGameObject
         {
             protected int hexNumber;
+            private Vector2 hexPosition;
 
             /// <summary>
             /// Default public constructor for Hex game object.
@@ -21,7 +22,7 @@ namespace Katan
             /// <summary>
             /// Loads all content for the Hex game object.
             /// </summary>
-            public virtual void LoadContent()
+            public virtual void LoadContent(ContentManager cm)
             {
                 throw new NotImplementedException();
             }
@@ -38,6 +39,28 @@ namespace Katan
             public virtual void Update()
             {
                 throw new NotImplementedException();
+            }
+            /// <summary>
+            /// Gets the position of the hex relative to the parent
+            /// World game object origin.
+            /// </summary>
+            /// <returns>2D location of Hex object.</returns>
+            public Vector2 GetHexLocation()
+            {
+                return hexPosition;
+            }
+            /// <summary>
+            /// Sets the position of the hex relative to the parent
+            /// World game object origin.
+            /// </summary>
+            /// <param name="position">New position of Hex object.</param>
+            public void SetHexLocation(Vector2 position)
+            {
+                hexPosition = position;
+            }
+            public virtual Texture2D GetHexTexture()
+            {
+                return null;
             }
         }
         public interface IHexRollable
@@ -58,9 +81,9 @@ namespace Katan
             /// <summary>
             /// Loads all needed content into memory for the current SeaHex object.
             /// </summary>
-            public override void LoadContent()
+            public override void LoadContent(ContentManager cm)
             {
-                base.LoadContent();
+                base.LoadContent(cm);
             }
             /// <summary>
             /// Updates the SeaHex object if needed.
@@ -76,6 +99,10 @@ namespace Katan
             {
                 base.UnloadContent();
             }
+            public override Texture2D GetHexTexture()
+            {
+                throw new NotImplementedException();
+            }
         }
         public class WheatHex : Hex, IHexRollable
         {
@@ -89,9 +116,9 @@ namespace Katan
             /// <summary>
             /// Loads all needed content for WheatHex object.
             /// </summary>
-            public override void LoadContent()
+            public override void LoadContent(ContentManager cm)
             {
-                base.LoadContent();
+                base.LoadContent(cm);
             }
             /// <summary>
             /// Runs any needed updates for the WheatHex object.
@@ -128,6 +155,10 @@ namespace Katan
             {
                 hexNumber = value;
             }
+            public override Texture2D GetHexTexture()
+            {
+                throw new NotImplementedException();
+            }
         }
         public class BrickHex : Hex, IHexRollable
         {
@@ -138,9 +169,9 @@ namespace Katan
             /// <summary>
             /// Loads all needed content for BrickHex object.
             /// </summary>
-            public override void LoadContent()
+            public override void LoadContent(ContentManager cm)
             {
-                base.LoadContent();
+                base.LoadContent(cm);
             }
             /// <summary>
             /// Runs any needed updates for the BrickHex object.
@@ -177,6 +208,10 @@ namespace Katan
             {
                 hexNumber = value;
             }
+            public override Texture2D GetHexTexture()
+            {
+                throw new NotImplementedException();
+            }
         }
         public class SheepHex : Hex, IHexRollable
         {
@@ -187,9 +222,9 @@ namespace Katan
             /// <summary>
             /// Loads all needed content for SheepHex object.
             /// </summary>
-            public override void LoadContent()
+            public override void LoadContent(ContentManager cm)
             {
-                base.LoadContent();
+                base.LoadContent(cm);
             }
             /// <summary>
             /// Runs any needed updates for the SheepHex object.
@@ -226,6 +261,10 @@ namespace Katan
             {
                 hexNumber = value;
             }
+            public override Texture2D GetHexTexture()
+            {
+                throw new NotImplementedException();
+            }
         }
         public class StoneHex : Hex, IHexRollable
         {
@@ -236,9 +275,9 @@ namespace Katan
             /// <summary>
             /// Loads all needed content for StoneHex object.
             /// </summary>
-            public override void LoadContent()
+            public override void LoadContent(ContentManager cm)
             {
-                base.LoadContent();
+                base.LoadContent(cm);
             }
             /// <summary>
             /// Runs any needed updates for the StoneHex object.
@@ -275,6 +314,10 @@ namespace Katan
             {
                 hexNumber = value;
             }
+            public override Texture2D GetHexTexture()
+            {
+                throw new NotImplementedException();
+            }
         }
         public class WoodHex : Hex, IHexRollable
         {
@@ -285,9 +328,9 @@ namespace Katan
             /// <summary>
             /// Loads all needed content for WoodHex object.
             /// </summary>
-            public override void LoadContent()
+            public override void LoadContent(ContentManager cm)
             {
-                base.LoadContent();
+                base.LoadContent(cm);
             }
             /// <summary>
             /// Runs any needed updates for the WoodHex object.
@@ -323,6 +366,10 @@ namespace Katan
             public void setHexNumber(int value)
             {
                 hexNumber = value;
+            }
+            public override Texture2D GetHexTexture()
+            {
+                throw new NotImplementedException();
             }
         }
     }
