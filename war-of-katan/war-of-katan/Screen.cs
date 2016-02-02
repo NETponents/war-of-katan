@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Content;
 
 namespace Katan
 {
@@ -11,6 +12,7 @@ namespace Katan
         {
             protected bool loaded;
             protected bool isInvalidated;
+            protected ContentManager contentManager;
             /// <summary>
             /// Default constructor for Screen object.
             /// </summary>
@@ -18,6 +20,10 @@ namespace Katan
             {
                 loaded = false;
                 isInvalidated = true;
+            }
+            protected void initializeContentManager(Game1 gameInstance)
+            {
+                contentManager = new ContentManager(gameInstance.Content.ServiceProvider, gameInstance.Content.RootDirectory);
             }
             /// <summary>
             /// Loads all content needed for Screen object instance.

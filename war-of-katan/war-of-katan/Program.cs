@@ -2,7 +2,6 @@
 
 namespace Katan
 {
-#if WINDOWS || LINUX
     /// <summary>
     /// The main class.
     /// </summary>
@@ -18,5 +17,4 @@ namespace Katan
                 game.Run();
         }
     }
-#endif
 }

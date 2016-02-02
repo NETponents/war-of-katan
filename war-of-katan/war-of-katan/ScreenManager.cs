@@ -37,7 +37,7 @@ namespace Katan
                 // Check to see if the previous frame requested a switch context operation.
                 if (switchOperationRequested)
                 {
-                    loadScreen(switchOperationArgument);
+                    loadScreen(switchOperationArgument, gameInstance);
                     switchOperationRequested = false;
                     switchOperationArgument = "";
                 }
@@ -99,6 +99,7 @@ namespace Katan
             /// <param name="_name">Name of screen to switch to.</param>
             public void SwitchScreen(string _name, Game1 gameInstance)
             {
+                Console.WriteLine("[DEBUG] Switched to " + _name + ".");
                 // Check to see if screen exists
                 if (!screenList.ContainsKey(_name))
                 {
@@ -136,9 +137,9 @@ namespace Katan
             /// Spawns a task that will asyncronously load a new screen into memory.
             /// </summary>
             /// <param name="_name">Name of Screen object to load.</param>
-            public Task AsyncPreloadScreen(string _name)
+            public Task AsyncPreloadScreen(string _name, Game1 gameInstance)
             {
-                Task result = new Task(() => loadScreen(_name));
+                Task result = new Task(() => loadScreen(_name, gameInstance));
                 return result;
             }
             /// <summary>
