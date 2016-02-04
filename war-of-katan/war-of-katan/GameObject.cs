@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.Xna.Framework.Content;
 
 namespace Katan
 {
@@ -10,8 +7,8 @@ namespace Katan
         public interface IGameObject
         {
             void Update();
-            void LoadContent();
-            void UnloadContent();
+            void LoadContent(ContentManager cm);
+            void UnloadContent(ContentManager cm);
         }
         public interface IManagedDrawObject
         {

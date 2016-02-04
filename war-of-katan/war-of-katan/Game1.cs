@@ -14,7 +14,7 @@ namespace Katan
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
         public ScreenManager screenManager;
-
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
